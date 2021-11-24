@@ -19,7 +19,7 @@ namespace ToDoList.Controllers
             this.context = context;
         }
 
-       // GET
+       // Get each item
         public async Task<ActionResult> Index()
         {
             IQueryable<TodoList> items = from i in context.TodoList orderby i.Id select i;
@@ -29,10 +29,10 @@ namespace ToDoList.Controllers
             return View(todoList);
         }
 
-        //GET /TODO /CREATE
+
         public IActionResult Create() => View();
 
-        //POST /todo/create
+        //Create a todo item
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(TodoList item)
@@ -50,7 +50,7 @@ namespace ToDoList.Controllers
             return View(item);
         }
 
-        // GET /todo/edit/5
+        // View the edit UI of an item
         public async Task<ActionResult> Edit(int id)
         {
             TodoList item = await context.TodoList.FindAsync(id);
@@ -64,7 +64,7 @@ namespace ToDoList.Controllers
 
         }
 
-        //POST /todo/edit/5
+        //Edit item
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(TodoList item)
@@ -82,7 +82,7 @@ namespace ToDoList.Controllers
             return View(item);
         }
 
-        // GET /todo/delete/5
+        // Delete item
         public async Task<ActionResult> Delete(int id)
         {
             TodoList item = await context.TodoList.FindAsync(id);
